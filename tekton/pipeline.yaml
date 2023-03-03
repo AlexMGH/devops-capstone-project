@@ -1,7 +1,6 @@
 # This pipeline needs the following tasks from Tekton Hub
 #   - git-clone
 #   - flake8
-#
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
@@ -21,7 +20,6 @@ spec:
           workspace: pipeline-workspace          
       taskRef:
         name: cleanup
----
     - name: clone
       workspaces:
         - name: output
@@ -35,22 +33,7 @@ spec:
         value: $(params.branch)
       runAfter:
         - init
----
     - name: lint
-      workspaces:
-        - name: source
-          workspace: pipeline-workspace
-      taskRef:
-        name: nose
-      params:
-      - name: database_uri
-        value: "sqlite:///test.db"
-      - name: args
-        value: "-v --with-spec --spec-color"
-      runAfter:
-        - clone
----
-    - name: tests
       workspaces:
         - name: source
           workspace: pipeline-workspace
