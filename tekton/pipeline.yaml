@@ -33,7 +33,7 @@ spec:
         value: $(params.branch)
       runAfter:
         - init
-    - name: lint
+    - name: tests
       workspaces:
         - name: source
           workspace: pipeline-workspace
